@@ -13,7 +13,7 @@ import static parkinglot.design.util.InputActionCommands.*;
  */
 public class Application {
     public static void main(String[] args) {
-        System.out.println("Starting Main Application");
+        //System.out.println("Starting Main Application");
         new Application().run();
 
     }

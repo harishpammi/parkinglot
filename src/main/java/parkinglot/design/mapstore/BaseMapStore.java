@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by hareesh.pammi on 6/19/19.
  */
 public abstract class BaseMapStore<K, V> {
-    private ConcurrentHashMap<K, V> baseMap;
+    protected ConcurrentHashMap<K, V> baseMap;
 
     public BaseMapStore() {
         this.baseMap = new ConcurrentHashMap<>();
