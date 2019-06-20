@@ -3,6 +3,9 @@ package parkinglot.design.command;
 import com.google.inject.Inject;
 import parkinglot.design.service.ParkingLot;
 
+import static parkinglot.design.util.PrintStrings.PARKING_LOT_CREATED;
+import static parkinglot.design.util.PrintStrings.PARKING_LOT_EXISTS;
+
 /**
  * Created by hareesh.pammi on 6/20/19.
  */
@@ -12,7 +15,7 @@ public class CreateParkingLotCommand implements BaseCommand {
 
     public void execute(String[] values) {
         if (parkingLot.getTotalNoOfSlotsAvailable() > 0) {
-            System.out.println("Parking lot is already created");
+            System.out.println(PARKING_LOT_EXISTS);
             return;
         }
 
@@ -20,7 +23,6 @@ public class CreateParkingLotCommand implements BaseCommand {
             parkingLot.addSlot(i);
         }
 
-        System.out.println("Created a parking lot with " + values[1] + " slots");
-        System.out.println(parkingLot.getTotalNoOfSlotsAvailable());
+        System.out.println(PARKING_LOT_CREATED.replace("{}", Integer.toString(parkingLot.getTotalNoOfSlotsAvailable())));
     }
 }

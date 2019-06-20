@@ -6,10 +6,14 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by hareesh.pammi on 6/19/19.
  */
 public abstract class BaseMapStore<K, V> {
-    private final ConcurrentHashMap<K, V> baseMap = new ConcurrentHashMap<K, V>();
+    private ConcurrentHashMap<K, V> baseMap;
+
+    public BaseMapStore() {
+        this.baseMap = new ConcurrentHashMap<>();
+    }
 
     public void store(K key, V value) {
-        if (value == null) {
+        if (value != null) {
             baseMap.put(key, value);
         }
 
