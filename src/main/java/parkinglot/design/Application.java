@@ -6,6 +6,10 @@ import parkinglot.design.command.*;
 import parkinglot.design.module.ParkingLotModule;
 import parkinglot.design.service.Actions;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import static parkinglot.design.util.InputActionCommands.*;
 
 /**
@@ -14,29 +18,56 @@ import static parkinglot.design.util.InputActionCommands.*;
 public class Application {
     public static void main(String[] args) {
         //System.out.println("Starting Main Application");
-        new Application().run();
+        if (args.length > 0) {
+            System.out.println(args[0]);
+            new Application().run(args[0]);
+        }
+        new Application().run(null);
 
     }
 
-    public void run() {
+    public void run(String fileName) {
         Injector injector = Guice.createInjector(new ParkingLotModule());
         initiateCommandsMap(injector);
         Actions actions = injector.getInstance(Actions.class);
-        actions.performAction("create_parking_lot 6");
-        actions.performAction("park KA-01-HH-1234 White");
-        actions.performAction("park KA-01-HH-9999 White");
-        actions.performAction("park KA-01-BB-0001 Black");
-        actions.performAction("park KA-01-HH-7777 Red");
-        actions.performAction("park KA-01-HH-2701 Blue");
-        actions.performAction("park KA-01-HH-3141 Black");
-        actions.performAction("leave 4");
-        actions.performAction("status");
-        actions.performAction("park KA-01-P-333 White");
-        actions.performAction("park DL-12-AA-9999 White");
-        actions.performAction("registration_numbers_for_cars_with_colour White");
-        actions.performAction("slot_numbers_for_cars_with_colour White");
-        actions.performAction("slot_number_for_registration_number KA-01-HH-3141");
-        actions.performAction("slot_number_for_registration_number MH-04-AY-1111");
+//        actions.performAction("create_parking_lot 6");
+//        actions.performAction("park KA-01-HH-1234 White");
+//        actions.performAction("park KA-01-HH-9999 White");
+//        actions.performAction("park KA-01-BB-0001 Black");
+//        actions.performAction("park KA-01-HH-7777 Red");
+//        actions.performAction("park KA-01-HH-2701 Blue");
+//        actions.performAction("park KA-01-HH-3141 Black");
+//        actions.performAction("leave 4");
+//        actions.performAction("status");
+//        actions.performAction("park KA-01-P-333 White");
+//        actions.performAction("park DL-12-AA-9999 White");
+//        actions.performAction("registration_numbers_for_cars_with_colour White");
+//        actions.performAction("slot_numbers_for_cars_with_colour White");
+//        actions.performAction("slot_number_for_registration_number KA-01-HH-3141");
+//        actions.performAction("slot_number_for_registration_number MH-04-AY-1111");
+//        actions.performAction("exit");
+        if (fileName != null) {
+            try {
+                File file = new File(fileName);
+                Scanner scanner = new Scanner(file);
+
+                while (scanner.hasNextLine()) {
+                    String action = scanner.nextLine();
+                    //System.out.println(action);
+                    actions.performAction(action);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Scanner scanner = new Scanner(System.in);
+            while (scanner.hasNextLine()) {
+                String action = scanner.nextLine();
+                //System.out.println(action);
+                actions.performAction(action);
+            }
+        }
+
     }
 
     private void initiateCommandsMap(Injector injector) {

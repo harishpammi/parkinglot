@@ -35,6 +35,10 @@ public class LeaveCommand implements BaseCommand {
         int inputSlot = Integer.parseInt(values[1]);
         VehicleDTO vehicleDTO = slotVehicleMap.get(inputSlot);
 
+        if (vehicleDTO == null) {
+            return;
+        }
+
         slotVehicleMap.remove(inputSlot);
         regNumberSlotMap.remove(vehicleDTO.getRegistrationNumber());
         colorSlotsMap.removeValueFromKey(vehicleDTO.getColour(), inputSlot);

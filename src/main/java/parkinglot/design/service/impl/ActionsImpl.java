@@ -49,6 +49,10 @@ public class ActionsImpl implements Actions {
                 commandsCollection.get(SLOTS_BY_COLOR).execute(inputArray);
                 break;
 
+            case "exit":
+                System.exit(0);
+                break;
+
             case "default":
                 System.out.println(INVALID_INPUT);
                 break;
